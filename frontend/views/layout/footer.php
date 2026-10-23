@@ -1,10 +1,20 @@
 <?php   
 $menu = get_menu_by_slug('legals');
-js_log($menu);
+$socials = get_globals_socials();
 ?>
 
 <footer data-layout="footer">
-    <mark>hier kommt der footer</mark>
+
+    <div class="socials">
+        <?php foreach ($socials as $item) : ?>
+            <a target="blank" 
+                href="<?= $item['url'] ?>">
+                <?= $item['title'] ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+
     <nav class="nav-container">
         <ul class="nav">
             <?php foreach ($menu as $item) : ?>

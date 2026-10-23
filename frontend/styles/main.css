@@ -50,7 +50,7 @@
             list-style: none;
             display: flex;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: flex-start;
             align-self: center;
             gap: 40px;
 
@@ -58,6 +58,18 @@
                 text-decoration: none;
                 color: black;
             }
+        }
+    }
+    .socials {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-self: center;
+        gap: 40px;
+
+        a {
+            text-decoration: none;
+            color: black;
         }
     }
 }
