@@ -126,7 +126,7 @@ function setup_get_pages(): array {
 }
 
 // -> Seiten, Startseite, Menüs, Kategorien und leere Socials anlegen
-function setup_create_structure(): void {
+function setup_create_structure(bool $rebuild_menus = false): void {
     $ids = [];
     foreach (setup_get_pages() as $slug => $page) {
         $existing = get_page_by_path($slug);
@@ -151,11 +151,11 @@ function setup_create_structure(): void {
         ['title' => 'projects', 'url' => home_url('/#projects')],
         ['title' => 'about me', 'page' => $ids['about-me']],
         ['title' => 'contact', 'page' => $ids['contact']],
-    ]);
+    ], $rebuild_menus);
     setup_create_menu('legals', 'Rechtliches', [
         ['title' => 'impressum', 'page' => $ids['impressum']],
         ['title' => 'privacy', 'page' => $ids['privacy']],
-    ]);
+    ], $rebuild_menus);
 
     foreach (['video', 'photo', 'graphics', 'event', 'podcast', 'socials'] as $index => $name) {
         $term = term_exists($name, 'project_category') ?: wp_insert_term($name, 'project_category');
@@ -175,14 +175,20 @@ function setup_create_structure(): void {
     flush_rewrite_rules();
 }
 
-// -> Ein Menü erstellen, ausser dem Menü-Ort ist schon eines zugewiesen
-function setup_create_menu(string $location, string $name, array $items): void {
+// -> Ein Menü erstellen, ausser dem Menü-Ort ist schon eines zugewiesen.
+// Mit $rebuild werden die Einträge eines bestehenden Menüs ersetzt.
+function setup_create_menu(string $location, string $name, array $items, bool $rebuild = false): void {
     $locations = get_nav_menu_locations();
-    if (!empty($locations[$location]) && wp_get_nav_menu_items($locations[$location])) {
+    $assigned_id = $locations[$location] ?? 0;
+    $assigned_items = $assigned_id ? (wp_get_nav_menu_items($assigned_id) ?: []) : [];
+    if ($assigned_items && !$rebuild) {
         return;
     }
+    foreach ($assigned_items as $item) {
+        wp_delete_post($item->ID, true);
+    }
     $menu = wp_get_nav_menu_object($name);
-    $menu_id = $menu ? $menu->term_id : wp_create_nav_menu($name);
+    $menu_id = $assigned_id ?: ($menu ? $menu->term_id : wp_create_nav_menu($name));
     if (is_wp_error($menu_id)) {
         return;
     }
@@ -276,6 +282,7 @@ add_action('admin_post_portfolio_setup', function () {
     }
     $actions = [
         'structure' => 'setup_create_structure',
+        'menus' => fn () => setup_create_structure(true),
         'demo' => 'setup_create_demo_projects',
         'delete' => 'setup_delete_demo_projects',
     ];
@@ -302,12 +309,13 @@ function setup_render_page(): void {
         <?php if (isset($_GET['done'])) : ?>
             <div class="notice notice-success"><p>Erledigt.</p></div>
         <?php endif; ?>
-        <p>Bestehende Seiten mit Inhalt, zugewiesene Menüs und erfasste Socials werden nicht überschrieben.</p>
+        <p>Bestehende Seiten mit Inhalt und erfasste Socials werden nicht überschrieben. Menüs werden nur mit «Menüs neu aufbauen» ersetzt.</p>
         <p>Demo-Projekte im System: <strong><?= esc_html((string) $demo_count) ?></strong></p>
         <form method="post" action="<?= esc_url(admin_url('admin-post.php')) ?>">
             <?php wp_nonce_field('portfolio_setup'); ?>
             <input type="hidden" name="action" value="portfolio_setup">
             <p><button class="button button-primary" name="task" value="structure">Seiten und Menüs anlegen</button></p>
+            <p><button class="button" name="task" value="menus">Menüs neu aufbauen</button> Ersetzt die Einträge in Hauptnavigation und Rechtliches.</p>
             <p><button class="button" name="task" value="demo">12 Demo-Projekte anlegen</button></p>
             <p><button class="button" name="task" value="delete">Demo-Projekte löschen</button></p>
         </form>

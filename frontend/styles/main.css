@@ -153,6 +153,7 @@ ul {
         font-family: var(--font-display);
         font-size: calc(15.5 * var(--u));
         font-weight: var(--weight-display);
+        text-transform: lowercase;
 
         a {
             transition: filter 0.2s;
@@ -183,6 +184,7 @@ ul {
     .nav {
         display: flex;
         flex-direction: row;
+        text-transform: lowercase;
     }
     .socials {
         justify-content: flex-end;
@@ -269,6 +271,8 @@ ul {
     .columns {
         margin-top: calc(26 * var(--u));
         padding-inline: calc(9 * var(--x)) 0;
+        font-size: calc(14 * var(--u));
+        line-height: calc(21 * var(--u));
     }
     .gallery {
         display: grid;

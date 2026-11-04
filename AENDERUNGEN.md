@@ -10,7 +10,7 @@ Grundlage war die Kopie deines Ordners `im5` vom 04.11.2026.
 5. **Seiten und Menüs anlegen** klicken, danach **12 Demo-Projekte anlegen**.
 6. Unter **Globales > Socials** prüfen: Bestehende Einträge werden nicht überschrieben. Dort den **Anzeigetext** und den **Titel im Footer** ergänzen und die echte LinkedIn-URL eintragen.
 
-Die Einrichtung überschreibt keine Seiten mit Inhalt, keine zugewiesenen Menüs und keine erfassten Socials. Sie setzt aber die Seite **Home** als Startseite.
+Die Einrichtung überschreibt keine Seiten mit Inhalt und keine erfassten Socials. Sie setzt aber die Seite **Home** als Startseite. Bestehende Menüs werden nur mit **Menüs neu aufbauen** ersetzt.
 
 ## Neu
 | Datei | Inhalt |

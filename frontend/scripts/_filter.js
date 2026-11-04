@@ -7,8 +7,17 @@ export function initFilter () {
     const teasers = document.querySelectorAll('[data-teaser]')
     const empty = document.querySelector('[data-filter-empty]')
 
+    const grid = document.querySelector('[data-grid]')
+
     function showCategory (category) {
         let visibleCount = 0
+
+        // Die Höhe bleibt beim Filtern gleich, sonst springt die Seite nach oben.
+        if (category === 'all') {
+            grid.style.minHeight = ''
+        } else if (!grid.style.minHeight) {
+            grid.style.minHeight = `${grid.offsetHeight}px`
+        }
 
         teasers.forEach((teaser) => {
             const categories = teaser.dataset.categories.split(' ')
