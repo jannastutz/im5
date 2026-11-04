@@ -1,9 +1,14 @@
-/*--- My Font ---*/
-/*regular*/
-/*@font-face {
-    font-family: 'Name';
+/*
+ * Coolvetica kommt über das Adobe-Fonts-Webprojekt (Link in header.php).
+ * Die Schriftdatei darf deshalb nicht im Theme liegen.
+ */
+
+/*--- Manrope ---*/
+/*variable, 200-800*/
+@font-face {
+    font-family: 'Manrope';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 200 800;
     font-display: swap;
-    src: url('../assets/fonts/filename.woff2') format('woff2');
-}*/
+    src: url('../assets/fonts/manrope-variable-latin.woff2') format('woff2');
+}
