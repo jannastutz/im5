@@ -645,7 +645,7 @@ ul {
 }
 
 [data-module="contact"] {
-    padding: calc(104 * var(--u)) var(--side) calc(96 * var(--u));
+    padding: calc(104 * var(--u)) var(--side) calc(48 * var(--u));
 
     .text {
         margin-top: calc(6 * var(--u));
@@ -869,6 +869,16 @@ ul {
     [data-module="text"] {
         padding-inline: calc(14 * var(--u));
     }
+}
+
+/* Blendet die Bildkanten der Contact-Bubble weich aus. */
+[data-theme="brown"] .bubble-2 {
+    --fade: linear-gradient(to bottom, transparent, black 14%, black 86%, transparent);
+    --fade-side: linear-gradient(to right, transparent, black 14%, black 86%, transparent);
+    -webkit-mask-image: var(--fade), var(--fade-side);
+    mask-image: var(--fade), var(--fade-side);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
 }
 
 @media (prefers-reduced-motion: reduce) {
