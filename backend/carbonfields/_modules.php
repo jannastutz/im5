@@ -35,7 +35,8 @@ Container::make('post_meta', 'Module')
             // -> about
             ->add_fields('about', 'Über mich', [
                 Field::make('text', 'title', 'Titel'),
-                Field::make('textarea', 'intro', 'Einleitung')->set_rows(3),
+                Field::make('rich_text', 'intro', 'Einleitung')
+                    ->set_help_text('Wörter markieren und auf B klicken, um sie fett zu machen.'),
                 Field::make('image', 'strip_left', 'Fotostreifen links')->set_width(50),
                 Field::make('image', 'strip_right', 'Fotostreifen rechts')->set_width(50),
                 Field::make('complex', 'timeline', 'Lebenslauf')

@@ -17,7 +17,7 @@ $strips = [
 
     <div class="about-content">
         <h2 class="heading"><?= esc_html($data['title']) ?></h2>
-        <p class="intro"><?= esc_html($data['intro']) ?></p>
+        <div class="intro"><?= wp_kses_post(wpautop($data['intro'])) ?></div>
         <ul class="timeline">
             <?php foreach ($data['timeline'] as $item) : ?>
                 <li><?= esc_html($item['years']) ?><br><?= esc_html($item['text']) ?></li>

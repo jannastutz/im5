@@ -17,6 +17,16 @@ $project = get_project_by_id(get_the_ID());
         <div><?= wp_kses_post(wpautop($project['text_2'])) ?></div>
     </div>
 
+    <?php foreach ($project['videos'] as $index => $video) : ?>
+        <?php // YouTube lädt erst nach dem Klick, vorher wird nichts an YouTube übertragen. ?>
+        <div class="video" data-video="<?= esc_attr($video['id']) ?>">
+            <?php if ($video['poster']) : ?>
+                <img src="<?= esc_url($video['poster']['src']) ?>" alt="" loading="lazy">
+            <?php endif; ?>
+            <button class="video-play" type="button" aria-label="Video <?= $index + 1 ?> abspielen"></button>
+        </div>
+    <?php endforeach; ?>
+
     <?php if ($project['gallery']) : ?>
         <ul class="gallery" data-gallery>
             <?php foreach ($project['gallery'] as $index => $item) : ?>
