@@ -60,9 +60,7 @@ In GitHub sind die `.DS_Store`-Dateien noch eingecheckt. Sie verschwinden dort e
 ## Platzhalter, die du ersetzen musst
 | Was | Wo | Wie |
 |---|---|---|
-| Titel | `frontend/assets/titles/` | Portfolio ist das Original, die anderen sind noch aus Screenshots freigestellt |
-| Bubbles | `frontend/assets/bubbles/` | Grau ist original, die Bubbles der anderen Seiten folgen |
-| Fotostreifen | Seite About me, Modul «Über mich» | Bilder hochladen |
+| Fotostreifen ändern (optional) | Seite About me, Modul «Über mich» | Bilder dort hochladen, sonst gelten `strip-left.webp` und `strip-right.webp` im Theme |
 | Projekte | Backend, Menüpunkt Projekte | Demo-Projekte löschen, eigene anlegen |
 | Skill-Texte, About-Text | Modul der jeweiligen Seite | Texte ersetzen |
 | Adresse in Impressum und Privacy | Modul «Text» der jeweiligen Seite | Eckige Klammern ersetzen, Texte vor dem Go-Live prüfen |

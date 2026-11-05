@@ -1,16 +1,17 @@
 <?php
 $data = $args['data'];
-$strips = ['left' => $data['strip_left'], 'right' => $data['strip_right']];
+// Im Backend erfasste Bilder gehen vor, sonst gelten die Fotostreifen aus dem Theme.
+$images = get_template_directory_uri() . '/frontend/assets/images/';
+$strips = [
+    'left' => $data['strip_left'] ?: ['src' => $images . 'strip-left.webp'],
+    'right' => $data['strip_right'] ?: ['src' => $images . 'strip-right.webp'],
+];
 ?>
 
 <section data-module="about">
     <div class="strips">
         <?php foreach ($strips as $side => $strip) : ?>
-            <?php if ($strip) : ?>
-                <img class="strip strip-<?= $side ?>" src="<?= esc_url($strip['src']) ?>" alt="<?= esc_attr($strip['alt']) ?>">
-            <?php else : ?>
-                <span class="strip strip-<?= $side ?> strip-empty" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            <?php endif; ?>
+            <img class="strip strip-<?= $side ?>" src="<?= esc_url($strip['src']) ?>" alt="<?= esc_attr($strip['alt'] ?? 'Fotostreifen von Janna Stutz') ?>">
         <?php endforeach; ?>
     </div>
 

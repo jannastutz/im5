@@ -23,6 +23,9 @@
     --u: calc(min(100vw, var(--max-type-width)) / 652);
     --x: calc(100vw / 652);
 
+    /* Linker und rechter Rand aller Inhalte, überall derselbe Wert */
+    --side: calc(28 * var(--x));
+
     /* Fliesstext, gleich gross wie die Stichworte bei den Skills */
     --text-small: max(13px, calc(11.5 * var(--u)));
     --text-small-line: 1.5;
@@ -90,7 +93,9 @@ ul {
 .bubble {
     position: absolute;
     left: calc(var(--x, 0) * 1%);
-    top: calc(var(--y, 0) * 1%);
+    /* Standard: Prozent der Seitenhöhe. Mit --top oder --bottom fest am Seitenrand. */
+    top: var(--top, calc(var(--y, 0) * 1%));
+    bottom: var(--bottom, auto);
     width: calc(var(--w, 0) * 1%);
     aspect-ratio: var(--ratio, 1);
     background: var(--image) center / 100% 100% no-repeat;
@@ -186,7 +191,7 @@ ul {
         align-items: center;
         width: 100%;
         min-height: calc(46 * var(--u));
-        padding-inline: calc(34 * var(--x));
+        padding-inline: var(--side);
     }
     .nav {
         display: flex;
@@ -247,13 +252,12 @@ ul {
     height: 100%;
 }
 [data-page="project"] {
-    padding: calc(108 * var(--u)) calc(34 * var(--x)) calc(52 * var(--u)) calc(36 * var(--x));
+    padding: calc(108 * var(--u)) var(--side) calc(52 * var(--u));
 
     .project-head {
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        padding-inline: calc(9 * var(--x));
         padding-bottom: calc(5 * var(--u));
     }
     .title {
@@ -269,14 +273,12 @@ ul {
     }
     & > .image {
         display: block;
-        width: calc(100% - 9 * var(--x));
+        width: 100%;
         aspect-ratio: 577 / 295;
-        margin-left: calc(9 * var(--x));
         object-fit: cover;
     }
     .columns {
         margin-top: calc(26 * var(--u));
-        padding-inline: calc(9 * var(--x)) 0;
         font-size: var(--text-small);
         line-height: var(--text-small-line);
     }
@@ -370,7 +372,7 @@ ul {
 }
 
 [data-page="404"] {
-    padding: calc(150 * var(--u)) calc(38 * var(--x)) calc(100 * var(--u));
+    padding: calc(150 * var(--u)) var(--side) calc(100 * var(--u));
     text-align: center;
 
     .pill-button {
@@ -427,7 +429,7 @@ ul {
 }
 
 [data-module="projects"] {
-    padding: calc(43 * var(--u)) calc(26 * var(--x)) calc(52 * var(--u)) calc(29 * var(--x));
+    padding: calc(43 * var(--u)) var(--side) calc(52 * var(--u));
     /* Beim Sprung auf #projects steht der Filter direkt unter der Navigation. */
     scroll-margin-top: calc(-4 * var(--u));
 
@@ -515,10 +517,9 @@ ul {
 
 [data-module="skills"] {
     overflow-anchor: none;
-    padding: calc(62 * var(--u)) calc(4 * var(--x)) 0 calc(33 * var(--x));
+    padding: calc(62 * var(--u)) var(--side) 0;
 
     .heading {
-        padding-inline: calc(13 * var(--x));
         margin-bottom: calc(33 * var(--u));
     }
     .skill + .skill {
@@ -526,10 +527,9 @@ ul {
     }
     summary {
         display: grid;
-        grid-template-columns: calc(252 * var(--x)) 1fr calc(20 * var(--u));
+        grid-template-columns: calc(205 * var(--x)) 1fr calc(20 * var(--u));
         align-items: center;
         min-height: calc(37.5 * var(--u));
-        padding-left: calc(11 * var(--x));
         cursor: pointer;
         list-style: none;
 
@@ -548,7 +548,7 @@ ul {
     }
     .skill-icon {
         position: relative;
-        justify-self: center;
+        justify-self: end;
         width: calc(12 * var(--u));
         height: calc(12 * var(--u));
         transition: rotate 0.2s;
@@ -578,15 +578,16 @@ ul {
     .skill-text {
         font-size: var(--text-small);
         line-height: var(--text-small-line);
-        padding: calc(2 * var(--u)) calc(50 * var(--x)) calc(12 * var(--u)) calc(11 * var(--x));
+        padding: calc(2 * var(--u)) calc(50 * var(--x)) calc(12 * var(--u)) 0;
     }
 }
 
 [data-module="about"] {
+    --s: calc(min(100vw, 1800px) / 1512);
     display: flex;
     justify-content: flex-end;
-    min-height: calc(490 * var(--u));
-    padding: calc(104 * var(--u)) calc(29 * var(--x)) 0 0;
+    min-height: calc(104 * var(--u) + 960 * var(--s));
+    padding: calc(104 * var(--u)) var(--side) 0 0;
     text-align: right;
 
     .about-content {
@@ -612,45 +613,39 @@ ul {
             margin-top: calc(22 * var(--u));
         }
     }
+    /*
+     * Fotostreifen: Masse direkt aus Figma (Frame 1512 breit).
+     * --s rechnet die Figma-Pixel auf die Fensterbreite um.
+     */
     .strips {
         position: absolute;
-        top: calc(100 * var(--u));
-        /* Im Figma-Format liegt das genau am linken Rand, breiter rückt es zur Mitte der linken Hälfte. */
-        left: calc(25% - 163 * var(--u));
-        width: calc(230 * var(--u));
+        top: calc(104 * var(--u));
+        left: 0;
     }
     .strip {
         position: absolute;
         display: block;
-        width: calc(66 * var(--u));
-        height: calc(330 * var(--u));
-        object-fit: contain;
+        max-width: none;
+        object-fit: cover;
     }
     .strip-left {
-        top: calc(85 * var(--u));
-        left: calc(60 * var(--u));
-        rotate: -24deg;
+        top: calc(244.3 * var(--s));
+        left: calc(104.7 * var(--s));
+        width: calc(147.5 * var(--s));
+        height: calc(760 * var(--s));
+        rotate: -26.48deg;
     }
     .strip-right {
-        top: calc(0 * var(--u));
-        left: calc(140 * var(--u));
-        height: calc(366 * var(--u));
-        rotate: 5deg;
-    }
-    .strip-empty {
-        display: grid;
-        gap: calc(4 * var(--u));
-        padding: calc(4 * var(--u));
-        background-color: var(--color-black);
-
-        i {
-            background-color: var(--color-grey);
-        }
+        top: calc(61 * var(--s));
+        left: calc(312.8 * var(--s));
+        width: calc(160.4 * var(--s));
+        height: calc(839.7 * var(--s));
+        rotate: 4.37deg;
     }
 }
 
 [data-module="contact"] {
-    padding: calc(104 * var(--u)) calc(17 * var(--x)) calc(96 * var(--u)) calc(50 * var(--x));
+    padding: calc(104 * var(--u)) var(--side) calc(96 * var(--u));
 
     .text {
         margin-top: calc(6 * var(--u));
@@ -680,8 +675,6 @@ ul {
 }
 /* Auf der Kontaktseite beginnt der Block weiter links. */
 [data-theme="brown"] [data-module="contact"] {
-    padding-left: calc(34 * var(--x));
-    padding-right: calc(41 * var(--x));
     padding-top: calc(40 * var(--u));
     padding-bottom: calc(48 * var(--u));
 
@@ -691,7 +684,7 @@ ul {
 }
 
 [data-module="text"] {
-    padding: calc(60 * var(--u)) calc(44 * var(--x)) calc(120 * var(--u)) calc(38 * var(--x));
+    padding: calc(36 * var(--u)) var(--side) calc(44 * var(--u));
 
     .columns {
         gap: calc(27 * var(--x));
@@ -699,12 +692,12 @@ ul {
         line-height: var(--text-small-line);
     }
     h2, h3 {
-        margin-top: calc(20 * var(--u));
-        margin-bottom: calc(4 * var(--u));
+        margin-top: calc(18 * var(--u));
+        margin-bottom: calc(3 * var(--u));
         font-family: var(--font-display);
-        font-size: calc(18 * var(--u));
+        font-size: calc(14 * var(--u));
         font-weight: var(--weight-display);
-        line-height: calc(24 * var(--u));
+        line-height: 1.3;
 
         &:first-child {
             margin-top: 0;
@@ -719,6 +712,8 @@ ul {
  * Bubbles pro Farbwelt.
  * Die Werte kommen aus Figma: x, y und w in Prozent des Frames, r in Grad.
  * Die Bilder liegen in frontend/assets/bubbles/, die Nummer ist die Figma-Ebene.
+ * Auf kurzen Seiten sind die Bubbles fest am Rand verankert, damit die Bildkanten
+ * ausserhalb der Seite bleiben, egal wie lang der Text ist.
  */
 [data-theme="grey"] {
     .bubble-1 { --image: url('../assets/bubbles/bubble-41.webp'); --x: -103.175; --y: 71.998; --w: 193.122; --ratio: 1.3388; --r: 0; --o: 1; }
@@ -732,20 +727,20 @@ ul {
     .bubble-3, .bubble-4, .bubble-5 { display: none; }
 }
 [data-theme="olive"] {
-    .bubble-1 { --image: url('../assets/bubbles/olive-1.png'); --x: 28; --y: -6; --w: 95; --r: 30; --o: 1; }
-    .bubble-2 { --image: url('../assets/bubbles/olive-dark-1.png'); --x: -36; --y: 24; --w: 80; --r: 0; --o: 0.8; }
-    .bubble-3 { --image: url('../assets/bubbles/olive-2.png'); --x: 35; --y: 62; --w: 100; --r: 60; --o: 1; }
-    .bubble-4 { --image: url('../assets/bubbles/olive-1.png'); --x: -40; --y: 74; --w: 100; --r: 130; --o: 1; }
-    .bubble-5 { display: none; }
+    .bubble-1 { --image: url('../assets/bubbles/bubble-34.webp'); --x: -44.511; --y: 39.456; --w: 210.450; --ratio: 1.5152; --r: 0; --o: 1; }
+    .bubble-2 { --image: url('../assets/bubbles/bubble-33.webp'); --x: -3.770; --y: 103.247; --w: 143.717; --ratio: 1.5153; --r: 0; --o: 1; }
+    .bubble-3 { --image: url('../assets/bubbles/bubble-27.webp'); --x: -53.711; --y: 77.324; --w: 172.142; --ratio: 1.5154; --r: 31.44; --o: 1; }
+    .bubble-4 { --image: url('../assets/bubbles/bubble-26.webp'); --x: -22.057; --y: 22.975; --w: 129.762; --ratio: 1.5151; --r: 90; --o: 1; }
+    .bubble-5 { --image: url('../assets/bubbles/bubble-25.webp'); --x: 14.138; --y: -3.594; --w: 101.037; --ratio: 1.5154; --r: 163.7; --o: 1; }
 }
 [data-theme="brown"] {
-    .bubble-1 { --image: url('../assets/bubbles/brown-1.png'); --x: -38; --y: 12; --w: 100; --r: 10; --o: 1; }
-    .bubble-2 { --image: url('../assets/bubbles/brown-2.png'); --x: 50; --y: -30; --w: 95; --r: 40; --o: 1; }
+    .bubble-1 { --image: url('../assets/bubbles/bubble-38.webp'); --top: -32.33vw; --x: 41.236; --y: -28.486; --w: 113.426; --ratio: 1.3388; --r: 48.99; --o: 0.87; }
+    .bubble-2 { --image: url('../assets/bubbles/bubble-37.webp'); --top: -16.82vw; --x: -107.559; --y: -15.004; --w: 153.704; --ratio: 1.3387; --r: -126.47; --o: 1; }
     .bubble-3, .bubble-4, .bubble-5 { display: none; }
 }
 [data-theme="orange"] {
-    .bubble-1 { --image: url('../assets/bubbles/orange-1.png'); --x: 62; --y: -18; --w: 70; --r: 30; --o: 1; }
-    .bubble-2 { --image: url('../assets/bubbles/orange-2.png'); --x: -30; --y: 52; --w: 95; --r: 10; --o: 1; }
+    .bubble-1 { --image: url('../assets/bubbles/bubble-28.webp'); --top: -12.07vw; --x: 15.206; --y: -14.084; --w: 148.738; --ratio: 1.5154; --r: 141.23; --o: 1; }
+    .bubble-2 { --image: url('../assets/bubbles/bubble-24.webp'); --top: auto; --bottom: -24.9vw; --x: -21.122; --y: 54.935; --w: 96.221; --ratio: 1.5154; --r: 40.26; --o: 1; }
     .bubble-3, .bubble-4, .bubble-5 { display: none; }
 }
 
@@ -756,6 +751,7 @@ ul {
     :root {
         --u: calc(100vw / 430);
         --x: var(--u);
+        --side: calc(14 * var(--u));
     }
 
     [data-layout="header"] {
@@ -791,27 +787,14 @@ ul {
     }
 
     [data-page="project"] {
-        padding-inline: calc(14 * var(--u));
-
-        .project-head,
-        .columns {
-            padding-inline: 0;
-        }
-        & > .image {
-            width: 100%;
-            margin-left: 0;
-        }
         .gallery {
             grid-template-columns: repeat(2, 1fr);
         }
     }
 
     [data-module="skills"] {
-        padding-inline: calc(14 * var(--u));
+        padding: calc(40 * var(--u)) calc(14 * var(--u)) 0;
 
-        .heading {
-            padding-inline: 0;
-        }
         summary {
             grid-template-columns: 1fr calc(20 * var(--u));
             padding: calc(9 * var(--u)) 0;
@@ -825,38 +808,62 @@ ul {
             grid-row: 1 / span 2;
         }
         .skill-text {
-            padding-inline: 0;
+            padding-right: 0;
         }
     }
 
+    /* Alle Abschnitte auf der About-Seite haben denselben Abstand. */
     [data-module="about"] {
-        display: block;
-        padding-inline: calc(14 * var(--u));
+        --s: calc(100vw / 760);
+        flex-direction: column;
+        min-height: 0;
+        padding: calc(48 * var(--u)) calc(14 * var(--u)) 0;
 
         .about-content {
+            order: -1;
             width: 100%;
         }
         .strips {
             position: relative;
             top: auto;
-            left: auto;
-            width: calc(230 * var(--u));
-            height: calc(445 * var(--u));
-            margin: calc(40 * var(--u)) auto 0;
+            left: calc(50% - 224 * var(--s));
+            align-self: flex-start;
+            width: 0;
+            height: calc(905 * var(--s));
+            margin-top: calc(36 * var(--u));
         }
     }
 
     [data-module="contact"],
     [data-theme="brown"] [data-module="contact"] {
-        padding-inline: calc(14 * var(--u));
+        padding: calc(48 * var(--u)) calc(14 * var(--u));
 
+        .contact-list {
+            gap: calc(14 * var(--u));
+            margin-top: calc(28 * var(--u));
+        }
         .contact-item {
             grid-template-columns: 1fr;
-            gap: calc(8 * var(--u));
+            justify-items: end;
+            gap: calc(6 * var(--u));
         }
         .contact-title {
-            text-align: left;
+            font-size: calc(24 * var(--u));
+            text-align: right;
         }
+        .pill-button {
+            width: calc(270 * var(--u));
+            height: calc(44 * var(--u));
+            border-radius: calc(22 * var(--u));
+            font-size: calc(20 * var(--u));
+        }
+    }
+    [data-theme="brown"] [data-module="contact"] {
+        padding-top: calc(24 * var(--u));
+    }
+    /* Die dunkle Bubble rückt nach unten, damit der Titel lesbar bleibt. */
+    [data-theme="brown"] .bubble-2 {
+        --top: 38vw;
     }
 
     [data-module="text"] {

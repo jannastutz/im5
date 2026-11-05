@@ -15,12 +15,15 @@ function setup_get_impressum_text(): array {
 <h2>Verantwortlich für den Inhalt</h2>
 <p>Janna Syrina Stutz<br>[Strasse und Hausnummer]<br>[PLZ und Ort]<br>Schweiz</p>
 <p>E-Mail: <a href="mailto:hi@jannastutz.ch">hi@jannastutz.ch</a></p>
+<h2>Urheberrecht</h2>
+<p>Alle Rechte an Inhalten, Bildern, Fotos und anderen Dateien auf dieser Website gehören Janna Syrina Stutz oder den genannten Rechteinhaberinnen und Rechteinhabern. Für jede Verwendung braucht es vorher eine schriftliche Zustimmung.</p>
 HTML,
         'text_2' => <<<'HTML'
-<h2>Urheberrecht</h2>
-<p>Alle Inhalte dieser Website gehören Janna Syrina Stutz, sofern nichts anderes vermerkt ist. Für jede Verwendung braucht es vorher eine schriftliche Zustimmung.</p>
 <h2>Haftung</h2>
-<p>Die Inhalte werden sorgfältig erstellt, für ihre Richtigkeit und Vollständigkeit gibt es aber keine Gewähr. Für Inhalte externer Websites, auf die verlinkt wird, sind deren Betreiber verantwortlich.</p>
+<p>Ich übernehme keine Gewähr für die Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen auf dieser Website. Haftungsansprüche wegen Schäden materieller oder immaterieller Art, die aus dem Zugriff auf die Inhalte, ihrer Nutzung oder Nichtnutzung, durch Missbrauch der Verbindung oder durch technische Störungen entstehen, sind ausgeschlossen, soweit das Gesetz dies zulässt.</p>
+<p>Alle Angebote sind unverbindlich. Ich kann Inhalte ohne Ankündigung ändern, ergänzen oder löschen und die Website zeitweise oder endgültig offline nehmen.</p>
+<h2>Links</h2>
+<p>Links auf Websites Dritter liegen ausserhalb meiner Verantwortung. Für deren Inhalte sind die jeweiligen Betreiber verantwortlich. Der Zugriff und die Nutzung erfolgen auf eigene Gefahr.</p>
 HTML,
     ];
 }
@@ -42,10 +45,12 @@ HTML,
 <p>Diese Website setzt für Besucherinnen und Besucher keine eigenen Cookies und keine Analyse- oder Werbedienste ein.</p>
 <h2>Kontakt per E-Mail</h2>
 <p>Wenn du mir schreibst, bearbeite ich deine Angaben, um deine Anfrage zu beantworten.</p>
+<h2>Aufbewahrung</h2>
+<p>Ich bewahre Personendaten nur so lange auf, wie es für den jeweiligen Zweck nötig ist oder das Gesetz es verlangt.</p>
 <h2>Externe Links</h2>
 <p>Diese Website verlinkt auf Instagram und LinkedIn. Erst wenn du einen dieser Links öffnest, gelten dort die Datenschutzbestimmungen des jeweiligen Anbieters.</p>
 <h2>Deine Rechte</h2>
-<p>Du kannst Auskunft über deine Daten verlangen und unrichtige Daten berichtigen oder Daten löschen lassen, soweit keine gesetzliche Pflicht dagegen spricht. Schreib mir dafür an die oben genannte E-Mail-Adresse.</p>
+<p>Du kannst Auskunft über deine Daten verlangen und unrichtige Daten berichtigen oder Daten löschen lassen, soweit keine gesetzliche Pflicht dagegen spricht. Schreib mir dafür an die oben genannte E-Mail-Adresse. Du kannst dich auch an den Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) wenden.</p>
 <p>Stand: November 2026</p>
 HTML,
     ];
@@ -266,6 +271,17 @@ add_action('admin_notices', function () {
     }
 });
 
+// -> Impressum und Privacy mit den aktuellen Vorlagen überschreiben
+function setup_rewrite_legal_pages(): void {
+    $pages = setup_get_pages();
+    foreach (['impressum', 'privacy'] as $slug) {
+        $page = get_page_by_path($slug);
+        if ($page) {
+            carbon_set_post_meta($page->ID, 'modules', $pages[$slug]['modules']);
+        }
+    }
+}
+
 // -> Menüpunkt im Backend
 add_action('admin_menu', function () {
     add_management_page('Portfolio einrichten', 'Portfolio einrichten', 'manage_options', 'portfolio-setup', 'setup_render_page');
@@ -283,6 +299,7 @@ add_action('admin_post_portfolio_setup', function () {
     $actions = [
         'structure' => 'setup_create_structure',
         'menus' => fn () => setup_create_structure(true),
+        'legal' => 'setup_rewrite_legal_pages',
         'demo' => 'setup_create_demo_projects',
         'delete' => 'setup_delete_demo_projects',
     ];
@@ -316,6 +333,7 @@ function setup_render_page(): void {
             <input type="hidden" name="action" value="portfolio_setup">
             <p><button class="button button-primary" name="task" value="structure">Seiten und Menüs anlegen</button></p>
             <p><button class="button" name="task" value="menus">Menüs neu aufbauen</button> Ersetzt die Einträge in Hauptnavigation und Rechtliches.</p>
+            <p><button class="button" name="task" value="legal">Impressum und Privacy neu schreiben</button> Ersetzt die Texte beider Seiten, auch eine bereits eingetragene Adresse.</p>
             <p><button class="button" name="task" value="demo">12 Demo-Projekte anlegen</button></p>
             <p><button class="button" name="task" value="delete">Demo-Projekte löschen</button></p>
         </form>
