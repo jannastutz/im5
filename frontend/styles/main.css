@@ -79,6 +79,8 @@ ul {
     inset: 0;
     z-index: -1;
     overflow: hidden;
+    /* Der Browser darf sich beim Scrollen nicht an den Bubbles orientieren. */
+    overflow-anchor: none;
     pointer-events: none;
 }
 .bubble {
@@ -508,6 +510,7 @@ ul {
 }
 
 [data-module="skills"] {
+    overflow-anchor: none;
     padding: calc(62 * var(--u)) calc(4 * var(--x)) 0 calc(33 * var(--x));
 
     .heading {

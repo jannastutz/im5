@@ -27,6 +27,7 @@ Die Einrichtung überschreibt keine Seiten mit Inhalt und keine erfassten Social
 | `frontend/views/layout/bubbles.php` | Ebenen für die Bubbles |
 | `frontend/views/modules/` | hero, projects, skills, about, contact, text |
 | `frontend/scripts/_header.js`, `_filter.js`, `_lightbox.js` | Sticky Navigation, Filter, Grossansicht |
+| `frontend/scripts/_bubbles.js`, `_skills.js` | Bubbles und Skill-Zeilen bleiben beim Aufklappen stehen |
 | `frontend/assets/` | Manrope, Logo, Titel, Bubbles, Platzhalter |
 | `AENDERUNGEN.md` | Diese Datei |
 
