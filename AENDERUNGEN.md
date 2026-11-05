@@ -60,8 +60,8 @@ In GitHub sind die `.DS_Store`-Dateien noch eingecheckt. Sie verschwinden dort e
 ## Platzhalter, die du ersetzen musst
 | Was | Wo | Wie |
 |---|---|---|
-| Titel | `frontend/assets/titles/` | Original-PNG unter demselben Namen speichern |
-| Bubbles | `frontend/assets/bubbles/` | Originale ablegen, Werte in `main.css` anpassen |
+| Titel | `frontend/assets/titles/` | Portfolio ist das Original, die anderen sind noch aus Screenshots freigestellt |
+| Bubbles | `frontend/assets/bubbles/` | Grau ist original, die Bubbles der anderen Seiten folgen |
 | Fotostreifen | Seite About me, Modul «Über mich» | Bilder hochladen |
 | Projekte | Backend, Menüpunkt Projekte | Demo-Projekte löschen, eigene anlegen |
 | Skill-Texte, About-Text | Modul der jeweiligen Seite | Texte ersetzen |

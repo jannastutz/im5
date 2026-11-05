@@ -11,8 +11,8 @@
     --color-olive-light: #908765;
     --color-orange: #d27540;
     --color-brown: #592d29;
-    --color-text-muted: #8a8a8a;
-    --color-line: #d9d9d9;
+    --color-text-muted: rgb(0 0 0 / 48%);
+    --color-line: rgb(22 22 18 / 22%);
 
     /*
      * Alle Masse kommen aus dem Figma-Design (652 Einheiten breit).
@@ -23,6 +23,10 @@
     --u: calc(min(100vw, var(--max-type-width)) / 652);
     --x: calc(100vw / 652);
 
+    /* Fliesstext, gleich gross wie die Stichworte bei den Skills */
+    --text-small: max(13px, calc(11.5 * var(--u)));
+    --text-small-line: 1.5;
+
     /* fonts */
     --font-display: "coolvetica", "Manrope", sans-serif;
     --font-text: "Manrope", sans-serif;
@@ -30,11 +34,11 @@
 }
 
 /* Farbe des Footers pro Farbwelt, immer aus einer Hauptfarbe mit Deckkraft. */
-[data-theme="grey"] { --footer-color: var(--color-grey); --footer-opacity: 43%; --footer-text: var(--color-black); }
-[data-theme="project"] { --footer-color: var(--color-black); --footer-opacity: 44%; --footer-text: var(--color-white); }
-[data-theme="olive"] { --footer-color: var(--color-olive); --footer-opacity: 50%; --footer-text: var(--color-black); }
+[data-theme="grey"] { --footer-color: rgb(22 22 18 / 22%); --footer-opacity: 51%; --footer-text: var(--color-black); }
+[data-theme="project"] { --footer-color: rgb(22 22 18 / 22%); --footer-opacity: 55%; --footer-text: var(--color-white); }
+[data-theme="olive"] { --footer-color: var(--color-olive); --footer-opacity: 51%; --footer-text: var(--color-black); }
 [data-theme="brown"] { --footer-color: var(--color-brown); --footer-opacity: 50%; --footer-text: var(--color-black); }
-[data-theme="orange"] { --footer-color: var(--color-orange); --footer-opacity: 25%; --footer-text: var(--color-black); }
+[data-theme="orange"] { --footer-color: rgb(210 117 64 / 50%); --footer-opacity: 51%; --footer-text: var(--color-black); }
 
 body {
     position: relative;
@@ -160,9 +164,10 @@ ul {
         a {
             transition: filter 0.2s;
         }
+        /* Im Design 2px bei 36px Schrift */
         a:hover,
         a[aria-current="page"] {
-            filter: blur(0.7px);
+            filter: blur(calc(0.86 * var(--u)));
         }
     }
 }
@@ -224,7 +229,6 @@ ul {
     height: calc(52 * var(--u));
     border: 1px solid var(--color-line);
     border-radius: calc(26 * var(--u));
-    background-color: rgb(255 255 255 / 30%);
     color: var(--color-text-muted);
     font-size: calc(27 * var(--u));
     line-height: 1;
@@ -273,8 +277,8 @@ ul {
     .columns {
         margin-top: calc(26 * var(--u));
         padding-inline: calc(9 * var(--x)) 0;
-        font-size: calc(14 * var(--u));
-        line-height: calc(21 * var(--u));
+        font-size: var(--text-small);
+        line-height: var(--text-small-line);
     }
     .gallery {
         display: grid;
@@ -406,10 +410,10 @@ ul {
     }
 }
 [data-page="page"] > [data-module="hero"]:has(.subtitle) {
-    padding-top: calc(105 * var(--u));
+    padding-top: calc(100 * var(--u));
 
     .title img {
-        height: min(calc(95 * var(--x)), 300px);
+        height: min(calc(106 * var(--x)), 340px);
     }
 }
 
@@ -441,7 +445,7 @@ ul {
         padding-inline: calc(13 * var(--u));
         border: 1px solid var(--color-line);
         border-radius: calc(14 * var(--u));
-        background: rgb(255 255 255 / 30%);
+        background: transparent;
         color: var(--color-text-muted);
         font-family: var(--font-text);
         font-size: calc(12 * var(--u));
@@ -540,7 +544,7 @@ ul {
         text-transform: uppercase;
     }
     .skill-keywords {
-        font-size: calc(11.5 * var(--u));
+        font-size: var(--text-small);
     }
     .skill-icon {
         position: relative;
@@ -572,6 +576,8 @@ ul {
         rotate: 45deg;
     }
     .skill-text {
+        font-size: var(--text-small);
+        line-height: var(--text-small-line);
         padding: calc(2 * var(--u)) calc(50 * var(--x)) calc(12 * var(--u)) calc(11 * var(--x));
     }
 }
@@ -689,6 +695,8 @@ ul {
 
     .columns {
         gap: calc(27 * var(--x));
+        font-size: var(--text-small);
+        line-height: var(--text-small-line);
     }
     h2, h3 {
         margin-top: calc(20 * var(--u));
@@ -709,19 +717,19 @@ ul {
 
 /*
  * Bubbles pro Farbwelt.
- * Werte in Prozent der Seite. Die Bilder liegen in frontend/assets/bubbles/.
+ * Die Werte kommen aus Figma: x, y und w in Prozent des Frames, r in Grad.
+ * Die Bilder liegen in frontend/assets/bubbles/, die Nummer ist die Figma-Ebene.
  */
 [data-theme="grey"] {
-    .bubble-1 { --image: url('../assets/bubbles/grey-1.png'); --x: -30; --y: -10; --w: 105; --r: 20; --o: 0.55; }
-    .bubble-2 { --image: url('../assets/bubbles/grey-2.png'); --x: 44; --y: 36; --w: 90; --r: 40; --o: 0.85; }
-    .bubble-3 { --image: url('../assets/bubbles/grey-1.png'); --x: -35; --y: 66; --w: 100; --r: 200; --o: 0.8; }
+    .bubble-1 { --image: url('../assets/bubbles/bubble-41.webp'); --x: -103.175; --y: 71.998; --w: 193.122; --ratio: 1.3388; --r: 0; --o: 1; }
+    .bubble-2 { --image: url('../assets/bubbles/bubble-42.webp'); --x: -44.568; --y: 29.769; --w: 193.122; --ratio: 1.3388; --r: -164.17; --o: 1; }
+    .bubble-3 { --image: url('../assets/bubbles/bubble-43.webp'); --x: -11.000; --y: -3.329; --w: 118.981; --ratio: 1.3385; --r: -30.08; --o: 1; }
     .bubble-4, .bubble-5 { display: none; }
 }
 [data-theme="project"] {
-    .bubble-1 { --image: url('../assets/bubbles/grey-1.png'); --x: -38; --y: -12; --w: 120; --r: 10; --o: 0.8; }
-    .bubble-2 { --image: url('../assets/bubbles/grey-2.png'); --x: 60; --y: 62; --w: 70; --r: 80; --o: 0.85; }
-    .bubble-3 { --image: url('../assets/bubbles/grey-1.png'); --x: -30; --y: 75; --w: 90; --r: 150; --o: 0.55; }
-    .bubble-4, .bubble-5 { display: none; }
+    .bubble-1 { --image: url('../assets/bubbles/bubble-42.webp'); --x: -49.368; --y: 55.900; --w: 193.122; --ratio: 1.3388; --r: -168.91; --o: 1; }
+    .bubble-2 { --image: url('../assets/bubbles/bubble-41.webp'); --x: -57.540; --y: -15.047; --w: 191.534; --ratio: 1.3389; --r: 0; --o: 1; }
+    .bubble-3, .bubble-4, .bubble-5 { display: none; }
 }
 [data-theme="olive"] {
     .bubble-1 { --image: url('../assets/bubbles/olive-1.png'); --x: 28; --y: -6; --w: 95; --r: 30; --o: 1; }
