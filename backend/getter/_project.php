@@ -10,11 +10,11 @@ function get_project_by_id(int $id): array {
         'url' => get_permalink($id),
         'text' => carbon_get_post_meta($id, 'text'),
         'text_2' => carbon_get_post_meta($id, 'text_2'),
-        'image' => $image_id ? get_media_by_id($image_id, 'l') : false,
-        'thumbnail' => $image_id ? get_media_by_id($image_id, 's') : false,
+        'image' => $image_id ? get_media_by_id($image_id, 'xl') : false,
+        'thumbnail' => $image_id ? get_media_by_id($image_id, 'm') : false,
         'gallery' => array_map(function ($gallery_id) {
             return [
-                'thumbnail' => get_media_by_id($gallery_id, 's'),
+                'thumbnail' => get_media_by_id($gallery_id, 'm'),
                 'full' => get_media_by_id($gallery_id, 'xl'),
             ];
         }, carbon_get_post_meta($id, 'gallery') ?: []),
