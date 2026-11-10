@@ -9,15 +9,23 @@ export function initFilter () {
 
     const grid = document.querySelector('[data-grid]')
 
+    // Die Seite passt sich der Anzahl Projekte an. Sie bleibt nur so hoch,
+    // dass der Filter beim Klick an seinem Platz bleibt und nichts springt.
+    function keepScrollPosition (scrollY) {
+        const getMissing = () => scrollY + window.innerHeight - document.documentElement.scrollHeight
+
+        // Mehrmals, weil auf kurzen Seiten zuerst freier Platz aufgebraucht wird.
+        while (getMissing() > 0) {
+            grid.style.minHeight = `${grid.offsetHeight + getMissing()}px`
+        }
+        window.scrollTo({ top: scrollY, behavior: 'instant' })
+    }
+
     function showCategory (category) {
+        const scrollY = window.scrollY
         let visibleCount = 0
 
-        // Die Höhe bleibt beim Filtern gleich, sonst springt die Seite nach oben.
-        if (category === 'all') {
-            grid.style.minHeight = ''
-        } else if (!grid.style.minHeight) {
-            grid.style.minHeight = `${grid.offsetHeight}px`
-        }
+        grid.style.minHeight = ''
 
         teasers.forEach((teaser) => {
             const categories = teaser.dataset.categories.split(' ')
@@ -31,6 +39,7 @@ export function initFilter () {
         })
 
         empty.hidden = visibleCount > 0
+        keepScrollPosition(scrollY)
     }
 
     buttons.forEach((button) => {

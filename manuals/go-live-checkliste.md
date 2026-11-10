@@ -58,33 +58,33 @@
 ### All in One WP Security
 > [All-In-One Security (AIOS)](https://wordpress.org/plugins/all-in-one-wp-security-and-firewall/)
 
-- [ ] Plugin Installieren (Suchbegriff: All-In-One Security)
-- [ ] Erst-Konfiguration überspringen
-- [ ] Settings > .htaccess file > `Backup .htaccess file`
-- [ ] Settings > wp-config.php file > `Backup wp-config.php file`
-- [ ] Settings > WP version info > **Aktivieren**
-- [ ] User Security > User Accounts > **User `admin` umbenennen wenn der existiert**
-- [ ] User Security > User Accounts > **Display-Name soll nicht Login-Name sein**
-- [ ] User Security > User Accounts > Prevent User enumeration > **Aktivieren**
-- [ ] User Security > User Accounts > Enforce strong password > **Aktivieren**
-- [ ] User Security > Login Lockout > **Aktivieren**
-- [ ] User Security > Force Logout > **Aktivieren**
+- [x] Plugin Installieren (Suchbegriff: All-In-One Security)
+- [x] Erst-Konfiguration überspringen
+- [x] Settings > .htaccess file > `Backup .htaccess file`
+- [x] Settings > wp-config.php file > `Backup wp-config.php file`
+- [x] Settings > WP version info > **Aktivieren**
+- [x] User Security > User Accounts > **User `admin` umbenennen wenn der existiert**
+- [x] User Security > User Accounts > **Display-Name soll nicht Login-Name sein**
+- [x] User Security > User Accounts > Prevent User enumeration > **Aktivieren**
+- [x] User Security > User Accounts > Enforce strong password > **Aktivieren**
+- [x] User Security > Login Lockout > **Aktivieren**
+- [x] User Security > Force Logout > **Aktivieren**
 - [ ] Database-Security > Database Prefix > **Change database prefix**
-- [ ] File Security > File Permissions > **WP-Config Permission setzen**
-- [ ] File Security > File Protections > Delete WP default files > **Aktivieren**
+- [x] File Security > File Permissions > **WP-Config Permission setzen**
+- [x] File Security > File Protections > Delete WP default files > **Aktivieren**
 - [ ] File Security > File Protections > Prevent hotlinking > **Aktivieren**
-- [ ] File Security > File Protections > Disable PHP file editing > **Aktivieren**
-- [ ] Firewall > PHP Rules > Security enhancements > **Aktivieren**
-- [ ] Firewall > PHP Rules > Comment Protection > **Aktivieren**
-- [ ] Firewall > PHP Rules > URL security > **Aktivieren**
-- [ ] Firewall > PHP Rules > String filtering > **Aktivieren**
-- [ ] Firewall > PHP Rules > nG firewall rules > **Aktivieren**
-- [ ] Firewall > PHP Rules > Internet Bot Settings > **Aktivieren**
-- [ ] Firewall > .htaccess rules > Basic Firewall settings > **Aktivieren**
-- [ ] Firewall > .htaccess rules > Block debug log > **Aktivieren**
-- [ ] Firewall > .htaccess rules > Listing directory content > **Aktivieren**
-- [ ] Brute Force > Rename Login Page > **Aktivieren und neuer Pfad notieren**
-- [ ] Brute Force > Honey Pot > **Beide aktivieren**
+- [x] File Security > File Protections > Disable PHP file editing > **Aktivieren**
+- [x] Firewall > PHP Rules > Security enhancements > **Aktivieren**
+- [x] Firewall > PHP Rules > Comment Protection > **Aktivieren**
+- [x] Firewall > PHP Rules > URL security > **Aktivieren**
+- [x] Firewall > PHP Rules > String filtering > **Aktivieren**
+- [x] Firewall > PHP Rules > nG firewall rules > **Aktivieren**
+- [x] Firewall > PHP Rules > Internet Bot Settings > **Aktivieren**
+- [x] Firewall > .htaccess rules > Basic Firewall settings > **Aktivieren**
+- [x] Firewall > .htaccess rules > Block debug log > **Aktivieren**
+- [x] Firewall > .htaccess rules > Listing directory content > **Aktivieren**
+- [x] Brute Force > Rename Login Page > **Aktivieren und neuer Pfad notieren**
+- [x] Brute Force > Honey Pot > **Beide aktivieren**
 
 ### Updraft-Plus
 > [Updraft-Plus](https://wordpress.org/plugins/updraftplus/)

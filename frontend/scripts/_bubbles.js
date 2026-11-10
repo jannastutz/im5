@@ -1,15 +1,13 @@
 // Die Bubbles sind in Prozent der Seitenhöhe platziert. Damit sie stehen bleiben,
-// wenn die Seite durch aufgeklappte Inhalte länger wird, wird ihre Ebene fixiert.
+// wenn sich die Seitenhöhe ändert (Skills, Filter), bekommt ihre Ebene eine feste Höhe.
+// Die äussere Ebene schneidet sie auf die aktuelle Seitenlänge zu.
 export function initBubbles () {
-    const bubbles = document.querySelector('.bubbles')
-    if (!bubbles) return
+    const layer = document.querySelector('.bubbles-layer')
+    if (!layer) return
 
     function fixHeight () {
-        bubbles.style.bottom = ''
-        bubbles.style.height = ''
-        const height = bubbles.offsetHeight
-        bubbles.style.bottom = 'auto'
-        bubbles.style.height = `${height}px`
+        layer.style.height = ''
+        layer.style.height = `${layer.offsetHeight}px`
     }
 
     fixHeight()
