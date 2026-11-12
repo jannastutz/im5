@@ -33,14 +33,17 @@ Bubbles und Titelgrafiken sind Dateien unter `frontend/assets/`. Ihre Position, 
 
 ## Screenshots
 <img width="889" height="405" alt="Bildschirmfoto 2026-11-12 um 10 57 53" src="https://github.com/user-attachments/assets/21b85d6e-8cbf-4c31-be61-433e972541c6" />
+
 Moodboard, Ideenfindung und Farbauswahl
 
 
 <img width="686" height="517" alt="Bildschirmfoto 2026-11-12 um 10 57 01" src="https://github.com/user-attachments/assets/cbc5a384-b33b-4fd8-9109-7775d848acba" />
+
 Erstellung & Ausprobieren von Schriftbildern für die Titel
 
 
 <img width="891" height="400" alt="Bildschirmfoto 2026-11-12 um 10 59 26" src="https://github.com/user-attachments/assets/671b9344-4800-46fa-810e-3f99cf522ff5" />
+
 Fertiges Website-Design im Figma
 
 ## Learnings
